@@ -6,7 +6,7 @@ import { Container, Row, Col, Button, Form, InputGroup, InputGroupAddon, InputGr
 function ContactUs() {
   return (
     <>
-      <div className="section section-dark" id="contactus">
+      <div className="section" id="contactus">
         <Container>
           <Row>
             <Col className="ml-auto mr-auto" md="8">
