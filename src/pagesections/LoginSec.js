@@ -36,10 +36,8 @@ function LoginSec(props) {
       email: state.email,
       password: state.password
     };
+    loginUser(userData, props.history);
 
-
-    console.log(userData);
-    loginUser(userData);
   };
 
   useEffect(() => {
@@ -93,7 +91,7 @@ function LoginSec(props) {
                     <i className="fa fa-twitter" />
                   </Button>
                 </div>
-                <Form className="register-form">
+                <Form className="register-form" onSubmit={onSubmit}>
                   <label>Email</label>
                   <InputGroup className="form-group-no-border">
                     <InputGroupAddon addonType="prepend">
@@ -101,7 +99,7 @@ function LoginSec(props) {
                         <i className="nc-icon nc-email-85" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Email" type="email" />
+                    <Input placeholder="Email" type="email" onChange={onChange} value={state.email} id="email" />
                   </InputGroup>
                   <label>Password</label>
                   <InputGroup className="form-group-no-border">
@@ -110,7 +108,8 @@ function LoginSec(props) {
                         <i className="nc-icon nc-key-25" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Password" type="password" />
+                    <Input placeholder="Password" type="password" value={state.password} onChange={onChange} id="password" />
+                    <span className="text-danger">{state.errors.confirmpassword}</span>
                   </InputGroup>
                   <Button
                     block

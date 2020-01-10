@@ -5,10 +5,10 @@ import LoginSec from "pagesections/LoginSec.js";
 
 
 
-function Login() {
+function Login(props) {
   return (
     <>
-      <LoginSec />
+      <LoginSec {...props} />
     </>
   );
 }

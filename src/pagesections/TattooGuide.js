@@ -7,7 +7,6 @@ function Services() {
   return (
     <>
       <div className="section text-center section-dark" id="services">
-        <h1 className="tattoo-guide-title"><b>Tattoo Pointers</b></h1>
         <Container>
           <Row>
             <Col lg="12">

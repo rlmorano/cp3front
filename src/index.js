@@ -16,7 +16,6 @@ import Register from 'screens/Register';
 import BookingPage from 'screens/BookingPage';
 // userpages
 import CustomerPage from 'userpage/CustomerPage';
-import ArtistPage from 'userpage/ArtistPage';
 import AdminPage from 'userpage/AdminPage';
 
 // import Account from 'screens/Account';
@@ -35,7 +34,6 @@ ReactDOM.render(
         <Route path='/register' exact component={Register} />
         <Route path='/booking' exact component={BookingPage} />
         <Route path='/customer' exact component={CustomerPage} />
-        <Route path='/artist' exact component={ArtistPage} />
         <Route path='/admin' exact component={AdminPage} />
       </Switch>
     </BrowserRouter>

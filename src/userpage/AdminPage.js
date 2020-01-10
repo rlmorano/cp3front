@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDatetime from 'react-datetime';
-
+import NavBar from "components/Navbars/NavBar.js";
 // reactstrap components
 import {
   FormGroup,
@@ -17,6 +17,7 @@ import {
 const AdminPage = (props) => {
   return (
     <>
+      <NavBar />
       <Container>
         <div className="text-center section">
           <Col md="12">

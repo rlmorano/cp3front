@@ -12,6 +12,10 @@ import {
   NavItem,
   NavLink,
   Nav,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
   Container
 } from "reactstrap";
 
@@ -98,14 +102,21 @@ function NavBar() {
               <NavLink to="#contactus" tag={Link}>CONTACT</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="/register" tag={Link}>REGISTER</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink to="/login" tag={Link}>LOGIN</NavLink>
-            </NavItem>
-            <NavItem>
               <NavLink to="/booking" tag={Link}>BOOK A SESSION</NavLink>
             </NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                My Account
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem to="/login" tag={Link}>
+                  LOGIN
+                </DropdownItem>
+                <DropdownItem to="/register" tag={Link}>
+                  REGISTER
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
           </Nav>
         </Collapse>
       </Container>
@@ -113,3 +124,5 @@ function NavBar() {
   );
 }
 export default NavBar;
+
+

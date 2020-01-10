@@ -30,23 +30,28 @@ const AuthState = props => {
       );
   };
 
-  const loginUser = userData => {
-    axios
-      .post('http://localhost:5000/api/users/login', userData)
-      .then(res => {
-        // Save to localStorage
-        // Set token to localStorage
-        const { token } = res.data;
-        localStorage.setItem('jwtToken', token);
-        // Set token to Auth header
-        setAuthToken(token);
-        // Decode token to get user data
-        const decoded = jwt_decode(token);
-        // Set current user
-        dispatch(setCurrentUser(decoded));
+  const loginUser = (userData, history) => {
+    console.log('login');
+    axios({
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      data: userData,
+      url: 'http://localhost:5000/api/users/login',
+    }).then(res => {
+      history.push('/')
+      // Save to localStorage
+      // Set token to localStorage
+      const { token } = res.data;
+      localStorage.setItem('jwtToken', token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      const decoded = jwt_decode(token);
+      // Set current user
+      dispatch(setCurrentUser(decoded));
 
-        localStorage.setItem('isLoggedIn', true);
-      })
+      localStorage.setItem('isLoggedIn', true);
+    })
       .catch(err =>
         dispatch({
           type: GET_ERRORS,
@@ -134,7 +139,7 @@ const AuthState = props => {
         // Logout user
         dispatch(logoutUser());
         // Redirect to login
-        window.location.href = './signin';
+        window.location.href = './login';
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
