@@ -17,12 +17,18 @@ import {
 const items = [
   {
     src: require("assets/img/background/2.jpg"),
+    altText: "Modern Tattoo",
+    caption: "Modern Tattoo"
   },
   {
     src: require("assets/img/background/3.jpg"),
+    altText: "Tribal Tattoo",
+    caption: "Tribal Tattoo"
   },
   {
     src: require("assets/img/background/4.jpg"),
+    altText: "Old School Tattoo",
+    caption: "Old School Tattoo"
   }
 ];
 

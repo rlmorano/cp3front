@@ -18,7 +18,6 @@ function PromoOne() {
                 className="btn-round"
                 color="warning"
                 href="/booking"
-                onClick={e => e.preventDefault()}
               >Book a Session</Button>
             </Col>
           </Row>

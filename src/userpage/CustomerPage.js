@@ -1,99 +1,124 @@
-import React from 'react';
-import ReactDatetime from 'react-datetime';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import SolidNavBar from 'components/Navbars/SolidNavBar';
 
+import setAuthToken from '../utils/setAuthToken';
 // reactstrap components
 import {
   FormGroup,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
   Container,
-  Button,
   Row,
+  Button,
   Col
-} from "reactstrap";
+} from 'reactstrap';
 
-const CustomerPage = (props) => {
+const CustomerPage = props => {
+  const [bookings, setBookings] = useState('');
+  useEffect(() => {
+    if (localStorage.jwtToken) {
+      // Set auth token header auth
+      const token = localStorage.jwtToken;
+      setAuthToken(token);
+    }
+
+    axios({
+      method: 'GET',
+      headers: { 'content-type': 'application/json' },
+      url: 'http://localhost:5000/api/booking/mybookings'
+    })
+      .then(res => {
+        if (res.data.length === 0) {
+
+        } else {
+          setBookings(res.data);
+        }
+
+      })
+      .catch(err => console.log(err.message));
+  }, []);
+
+  const deleteBooking = id => {
+    if (localStorage.jwtToken) {
+      const token = localStorage.jwtToken;
+      setAuthToken(token);
+    }
+
+    axios({
+      method: 'DELETE',
+      headers: { 'content-type': 'application/json' },
+      url: 'http://localhost:5000/api/booking/' + id
+    })
+      .then(res => {
+        axios({
+          method: 'GET',
+          headers: { 'content-type': 'application/json' },
+          url: 'http://localhost:5000/api/booking/mybookings'
+        })
+          .then(res => {
+            setBookings(res.data);
+          })
+          .catch(err => console.log(err.message));
+      })
+      .catch(err => console.log(err.message));
+  }
+
+
+
   return (
     <>
-      <Container>
-        <div className="text-center section">
-          <Col md="12">
-            <div className="title mb-3">
+      <SolidNavBar />
+      <Container className="mt-5" >
+        <div className='text-center section'>
+          <Col md='12'>
+            <div className='title mb-3'>
               <h3>Current Appointments</h3>
             </div>
             <Row>
-              <Col sm="12">
-                <table className="table">
-                  <FormGroup>
+              <Col sm='12'>
+                <FormGroup>
+                  <table className='table table-bordered'>
+
                     <thead>
                       <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Tattoo Artist</th>
-                        <th scope="col">Type of Services</th>
-                        <th scope="col">Time</th>
-                        <th scope="col">Action</th>
+                        <th scope='col'>Date</th>
+                        <th scope='col'>Tattoo Artist</th>
+                        <th scope='col'>Type of Services</th>
+                        <th scope='col'>Time</th>
+                        <th scope='col'>Status</th>
+                        <th scope='col'>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>
-                          <InputGroup className="date" id="datetimepicker">
-                            <ReactDatetime
-                              inputProps={{
-                                placeholder: "Choose a Date"
-                              }}
-                            />
-                            <InputGroupAddon addonType="append">
-                              <InputGroupText>
-                                <span className="glyphicon glyphicon-calendar">
-                                  <i aria-hidden={true} className="fa fa-calendar" />
-                                </span>
-                              </InputGroupText>
-                            </InputGroupAddon>
-                          </InputGroup>
-                        </td>
-                        <td scope="row">
-                          <Input type="select" name="tattooartist">
-                            <option value="">Dado David</option>
-                            <option value="">Anne Concepcion</option>
-                            <option value="">Xavir Flintof</option>
-                          </Input>
-                        </td>
-                        <td>
-                          <Input type="select" name="services">
-                            <option value="">Modern Tattoo</option>
-                            <option value="">Old School Tattoo</option>
-                            <option value="">Tribal Tattoo</option>
-                            <option value="">Piercing</option>
-                          </Input>
-                        </td>
-                        <td>
-                          <Input type="select" name="booktime">
-                            <option value="">Choose a Time</option>
-                            <option value="">1:00-2:00PM</option>
-                            <option value="">2:00-3:00PM</option>
-                            <option value="">3:00-4:00PM</option>
-                            <option value="">4:00-5:00PM</option>
-                          </Input>
-                        </td>
-                        <td>
-                          <Button className="btn-warning mr-2">UPDATE</Button>
-                          <Button className="btn-danger mr-2">CANCEL</Button>
-                        </td>
-                      </tr>
+                      {bookings === '' ? (<tr>
+                        <td colSpan="6">No</td>
+                      </tr>) :
+                        bookings.map(booking => (
+                          <tr>
+                            <td>{booking.booking_date}</td>
+                            <td scope='row'>{booking.artist}</td>
+                            <td>{booking.service}</td>
+                            <td>{booking.time}</td>
+                            <td>{booking.status}</td>
+                            <td>
+                              <Button className='btn-danger mr-2'
+                                onClick={() => deleteBooking(booking._id)}
+                              >
+                                DELETE
+                              </Button>
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
-                  </FormGroup>
-                </table>
-              </Col>
 
+                  </table>
+                </FormGroup>
+              </Col>
             </Row>
           </Col>
         </div>
       </Container>
     </>
-  )
-}
+  );
+};
 
 export default CustomerPage;

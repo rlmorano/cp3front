@@ -1,13 +1,11 @@
-import React from 'react';
-import ReactDatetime from 'react-datetime';
-import NavBar from "components/Navbars/NavBar.js";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import SolidNavBar from 'components/Navbars/SolidNavBar';
+
+import setAuthToken from '../utils/setAuthToken';
 // reactstrap components
 import {
   FormGroup,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
   Container,
   Button,
   Row,
@@ -15,10 +13,83 @@ import {
 } from "reactstrap";
 
 const AdminPage = (props) => {
+  const [bookings, setBookings] = useState('');
+  useEffect(() => {
+    if (localStorage.jwtToken) {
+      // Set auth token header auth
+      const token = localStorage.jwtToken;
+      setAuthToken(token);
+    }
+
+    axios({
+      method: 'GET',
+      headers: { 'content-type': 'application/json' },
+      url: 'http://localhost:5000/api/booking/allbookings'
+    })
+      .then(res => {
+        if (res.data.length === 0) {
+
+        } else {
+          setBookings(res.data);
+        }
+
+      })
+      .catch(err => console.log(err.message));
+  }, []);
+
+  const rejectBooking = id => {
+    if (localStorage.jwtToken) {
+      const token = localStorage.jwtToken;
+      setAuthToken(token);
+    }
+
+    axios({
+      method: 'PUT',
+      headers: { 'content-type': 'application/json' },
+      url: 'http://localhost:5000/api/booking/' + id + '/reject'
+    })
+      .then(res => {
+        axios({
+          method: 'GET',
+          headers: { 'content-type': 'application/json' },
+          url: 'http://localhost:5000/api/booking/allbookings'
+        })
+          .then(res => {
+            setBookings(res.data);
+          })
+          .catch(err => console.log(err.message));
+      })
+      .catch(err => console.log(err.message));
+  }
+  const approveBooking = id => {
+    if (localStorage.jwtToken) {
+      const token = localStorage.jwtToken;
+      setAuthToken(token);
+    }
+
+    axios({
+      method: 'PUT',
+      headers: { 'content-type': 'application/json' },
+      url: 'http://localhost:5000/api/booking/' + id + '/accept'
+    })
+      .then(res => {
+        axios({
+          method: 'GET',
+          headers: { 'content-type': 'application/json' },
+          url: 'http://localhost:5000/api/booking/allbookings'
+        })
+          .then(res => {
+            setBookings(res.data);
+          })
+          .catch(err => console.log(err.message));
+      })
+      .catch(err => console.log(err.message));
+  }
+
   return (
     <>
-      <NavBar />
-      <Container>
+      <SolidNavBar />
+      <Container className="mt-5" >
         <div className="text-center section">
           <Col md="12">
             <div className="title mb-3">
@@ -26,68 +97,51 @@ const AdminPage = (props) => {
             </div>
             <Row>
               <Col sm="12">
-                <table className="table">
-                  <FormGroup>
+                <FormGroup>
+                  <table className="table table-bordered">
                     <thead>
                       <tr>
                         <th scope="col">Date</th>
+                        <th scope="col">Customer Name</th>
+                        <th scope='col'>Mobile Number</th>
                         <th scope="col">Tattoo Artist</th>
                         <th scope="col">Type of Services</th>
                         <th scope="col">Time</th>
                         <th scope="col">Status</th>
+                        <th scope='col'>Action</th>
+
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>
-                          <InputGroup className="date" id="datetimepicker">
-                            <ReactDatetime
-                              inputProps={{
-                                placeholder: "Choose a Date"
-                              }}
-                            />
-                            <InputGroupAddon addonType="append">
-                              <InputGroupText>
-                                <span className="glyphicon glyphicon-calendar">
-                                  <i aria-hidden={true} className="fa fa-calendar" />
-                                </span>
-                              </InputGroupText>
-                            </InputGroupAddon>
-                          </InputGroup>
-                        </td>
-                        <td scope="row">
-                          <Input type="select" name="tattooartist">
-                            <option value="">Dado David</option>
-                            <option value="">Anne Concepcion</option>
-                            <option value="">Xavir Flintof</option>
-                          </Input>
-                        </td>
-                        <td>
-                          <Input type="select" name="services">
-                            <option value="">Modern Tattoo</option>
-                            <option value="">Old School Tattoo</option>
-                            <option value="">Tribal Tattoo</option>
-                            <option value="">Piercing</option>
-                          </Input>
-                        </td>
-                        <td>
-                          <Input type="select" name="booktime">
-                            <option value="">Choose a Time</option>
-                            <option value="">1:00-2:00PM</option>
-                            <option value="">2:00-3:00PM</option>
-                            <option value="">3:00-4:00PM</option>
-                            <option value="">4:00-5:00PM</option>
-                          </Input>
-                        </td>
-                        <td>
-                          <Button className="btn-success" disabled>COMPLETED</Button>
-                          <Button className="btn-success" disabled>NOT COMPLETED</Button>
-
-                        </td>
-                      </tr>
+                      {bookings === '' ? (<tr>
+                        <td colSpan="8">No Appointment</td>
+                      </tr>) :
+                        bookings.map(booking => (
+                          <tr>
+                            <td>{booking.booking_date}</td>
+                            <td>{booking.user.firstname + " " + booking.user.lastname}</td>
+                            <td>{booking.user.mobilenumber}</td>
+                            <td scope='row'>{booking.artist}</td>
+                            <td>{booking.service}</td>
+                            <td>{booking.time}</td>
+                            <td>{booking.status}</td>
+                            <td>
+                              <Button className='btn-success mr-2'
+                                onClick={() => approveBooking(booking._id)}
+                              >
+                                APPROVE
+                              </Button>
+                              <Button className='btn-danger mr-2'
+                                onClick={() => rejectBooking(booking._id)}
+                              >
+                                REJECT
+                              </Button>
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
-                  </FormGroup>
-                </table>
+                  </table>
+                </FormGroup>
               </Col>
 
             </Row>

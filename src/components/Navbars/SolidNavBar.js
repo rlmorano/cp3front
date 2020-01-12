@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 // nodejs library that concatenates strings
 import classnames from 'classnames';
-
 import AuthContext from '../../context/auth/authContext';
 
 // reactstrap components
@@ -20,11 +19,11 @@ import {
   Container
 } from 'reactstrap';
 
-function NavBar() {
+function SolidNavBar() {
   const authContext = useContext(AuthContext);
   const { isAuthenticated, logoutUser } = authContext;
 
-  const [navbarColor, setNavbarColor] = React.useState('navbar-transparent');
+  const [navbarColor, setNavbarColor] = React.useState('navbar-dark');
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
 
   const toggleNavbarCollapse = () => {
@@ -32,27 +31,27 @@ function NavBar() {
     document.documentElement.classList.toggle('nav-open');
   };
 
-  React.useEffect(() => {
-    const updateNavbarColor = () => {
-      if (
-        document.documentElement.scrollTop > 299 ||
-        document.body.scrollTop > 299
-      ) {
-        setNavbarColor('');
-      } else if (
-        document.documentElement.scrollTop < 300 ||
-        document.body.scrollTop < 300
-      ) {
-        setNavbarColor('navbar-transparent');
-      }
-    };
+  // React.useEffect(() => {
+  //   const updateNavbarColor = () => {
+  //     if (
+  //       document.documentElement.scrollTop > 299 ||
+  //       document.body.scrollTop > 299
+  //     ) {
+  //       setNavbarColor('');
+  //     } else if (
+  //       document.documentElement.scrollTop < 300 ||
+  //       document.body.scrollTop < 300
+  //     ) {
+  //       setNavbarColor('navbar-transparent');
+  //     }
+  //   };
 
-    window.addEventListener('scroll', updateNavbarColor);
+  //   window.addEventListener('scroll', updateNavbarColor);
 
-    return function cleanup() {
-      window.removeEventListener('scroll', updateNavbarColor);
-    };
-  });
+  //   return function cleanup() {
+  //     window.removeEventListener('scroll', updateNavbarColor);
+  //   };
+  // });
   return (
     <Navbar
       className={classnames('fixed-top', navbarColor)}
@@ -155,4 +154,4 @@ function NavBar() {
     </Navbar>
   );
 }
-export default NavBar;
+export default SolidNavBar;

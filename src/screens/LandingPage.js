@@ -35,7 +35,7 @@ function LandingPage() {
           <div className="motto text-center">
             <h3>Want a to different   <strong><b>TATTOO EXP</b></strong>  erience?</h3>
             <br />
-            <Button className="btn-round" color="neutral" type="button" outline href="/">
+            <Button className="btn-round" color="neutral" type="button" outline href="/home">
               Please Come In
             </Button>
           </div>

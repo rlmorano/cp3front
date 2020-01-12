@@ -17,7 +17,6 @@ import BookingPage from 'screens/BookingPage';
 // userpages
 import CustomerPage from 'userpage/CustomerPage';
 import AdminPage from 'userpage/AdminPage';
-
 // import Account from 'screens/Account';
 
 // others
@@ -28,8 +27,8 @@ ReactDOM.render(
   <AuthState>
     <BrowserRouter>
       <Switch>
-        <Route path='/landingpage' render={props => <LandingPage {...props} />} />
-        <Route path='/' exact render={props => <Home {...props} />} />
+        <Route path='/' exact render={props => <LandingPage {...props} />} />
+        <Route path='/home' exact render={props => <Home {...props} />} />
         <Route path='/login' exact component={Login} />
         <Route path='/register' exact component={Register} />
         <Route path='/booking' exact component={BookingPage} />
