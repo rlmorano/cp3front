@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import SolidNavBar from 'components/Navbars/SolidNavBar';
+import AuthContext from '../context/auth/authContext';
 
 import setAuthToken from '../utils/setAuthToken';
 // reactstrap components
@@ -13,8 +14,16 @@ import {
 } from "reactstrap";
 
 const AdminPage = (props) => {
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
+
   const [bookings, setBookings] = useState('');
   useEffect(() => {
+
+    if (user.email !== 'patpatin@gmail.com') {
+      props.history.push("/");
+    }
+
     if (localStorage.jwtToken) {
       // Set auth token header auth
       const token = localStorage.jwtToken;

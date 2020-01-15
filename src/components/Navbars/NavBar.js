@@ -23,7 +23,7 @@ import {
 
 function NavBar() {
   const authContext = useContext(AuthContext);
-  const { isAuthenticated, logoutUser } = authContext;
+  const { isAuthenticated, logoutUser, user } = authContext;
 
   const [navbarColor, setNavbarColor] = React.useState('navbar-transparent');
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
@@ -131,9 +131,13 @@ function NavBar() {
               <DropdownMenu right>
                 {isAuthenticated ? (
                   <>
-                    <DropdownItem to='/customer' tag={Link}>
-                      BOOKINGS
-                </DropdownItem>
+                    {user.email === 'patpatin@gmail.com' ? (<DropdownItem to='/admin' tag={Link}>
+                      ADMIN
+                </DropdownItem>) : (<DropdownItem to='/customer' tag={Link}>
+                        BOOKINGS
+                </DropdownItem>)}
+
+
                     <DropdownItem onClick={() => logoutUser()} tag={Link}>
                       LOGOUT
                 </DropdownItem>
