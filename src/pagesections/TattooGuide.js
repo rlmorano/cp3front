@@ -6,7 +6,7 @@ import { Container, Row, Col, } from "reactstrap";
 function Services() {
   return (
     <>
-      <div className="section text-center section-dark" id="services">
+      <div className="section text-center section-dark" id="service">
         <Container>
           <Row>
             <Col lg="12">

@@ -1,7 +1,7 @@
 import React from "react";
 
 // reactstrap components
-import { Container, Row, Col, Button, Card, CardBody, CardTitle, CardFooter, } from "reactstrap";
+import { Container, Row, Col, Button, Card, CardBody, CardTitle, CardFooter } from "reactstrap";
 
 function Team() {
   return (

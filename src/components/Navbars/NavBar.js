@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 // nodejs library that concatenates strings
 import classnames from 'classnames';
+import { Link as Slink, animateScroll as scroll } from "react-scroll";
 
 import AuthContext from '../../context/auth/authContext';
 
@@ -93,27 +94,27 @@ function NavBar() {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to='#services' tag={Link}>
+              <NavLink to='services' tag={Slink} smooth={true} offset={-20}>
                 SERVICES
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to='#carousel' tag={Link}>
+              <NavLink to='carousel' tag={Slink} smooth={true} offset={-20}>
                 GALLERY
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to='#aboutus' tag={Link}>
+              <NavLink to='aboutus' tag={Slink} smooth={true} offset={-20}>
                 ABOUT
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to='#team' tag={Link}>
+              <NavLink to='team' tag={Slink} smooth={true} offset={-20}>
                 TEAM
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to='#contactus' tag={Link}>
+              <NavLink to='contactus' tag={Slink} smooth={true} offset={-20}>
                 CONTACT
               </NavLink>
             </NavItem>

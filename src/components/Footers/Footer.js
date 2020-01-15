@@ -5,7 +5,7 @@ import { Row, Container } from "reactstrap";
 
 function Footer() {
   return (
-    <footer className="footer">
+    <footer className="footer bg-dark">
       <Container>
         <Row>
           <div className="credits mx-auto">
