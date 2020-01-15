@@ -85,7 +85,7 @@ const CustomerPage = props => {
                         <th scope='col'>Type of Services</th>
                         <th scope='col'>Time</th>
                         <th scope='col'>Status</th>
-                        <th scope='col'>Action</th>
+                        <th scope='col' style={{ width: '300px' }}>Action</th>
                       </tr>
                     </thead>
                     <tbody>
