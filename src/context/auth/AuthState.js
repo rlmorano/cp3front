@@ -19,7 +19,7 @@ const AuthState = props => {
 
   const registerUser = (userData, history) => {
     axios
-      .post('http://localhost:5000/api/users/register', userData)
+      .post('http://tattooz.ralphmorano.com/api/users/register', userData)
       .then(res => history.push('/login')) // re-direct to login on successful register
       .catch(err => {
         dispatch({
@@ -36,7 +36,7 @@ const AuthState = props => {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       data: userData,
-      url: 'http://localhost:5000/api/users/login',
+      url: 'http://tattooz.ralphmorano.com/api/users/login',
     }).then(res => {
       history.push('/')
       // Save to localStorage

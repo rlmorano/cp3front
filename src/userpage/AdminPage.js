@@ -33,7 +33,7 @@ const AdminPage = (props) => {
     axios({
       method: 'GET',
       headers: { 'content-type': 'application/json' },
-      url: 'http://localhost:5000/api/booking/allbookings'
+      url: 'http://tattooz.ralphmorano.com/api/booking/allbookings'
     })
       .then(res => {
         if (res.data.length === 0) {
@@ -55,13 +55,13 @@ const AdminPage = (props) => {
     axios({
       method: 'PUT',
       headers: { 'content-type': 'application/json' },
-      url: 'http://localhost:5000/api/booking/' + id + '/reject'
+      url: 'http://tattooz.ralphmorano.com/api/booking/' + id + '/reject'
     })
       .then(res => {
         axios({
           method: 'GET',
           headers: { 'content-type': 'application/json' },
-          url: 'http://localhost:5000/api/booking/allbookings'
+          url: 'http://tattooz.ralphmorano.com/api/booking/allbookings'
         })
           .then(res => {
             setBookings(res.data);
@@ -79,13 +79,13 @@ const AdminPage = (props) => {
     axios({
       method: 'PUT',
       headers: { 'content-type': 'application/json' },
-      url: 'http://localhost:5000/api/booking/' + id + '/accept'
+      url: 'http://tattooz.ralphmorano.com/api/booking/' + id + '/accept'
     })
       .then(res => {
         axios({
           method: 'GET',
           headers: { 'content-type': 'application/json' },
-          url: 'http://localhost:5000/api/booking/allbookings'
+          url: 'http://tattooz.ralphmorano.com/api/booking/allbookings'
         })
           .then(res => {
             setBookings(res.data);

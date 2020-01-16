@@ -45,7 +45,7 @@ const BookingPage = props => {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       data: newBooking,
-      url: 'http://localhost:5000/api/booking/new'
+      url: 'http://tattooz.ralphmorano.com/api/booking/new'
     })
       .then(res => {
         props.history.push('/customer');

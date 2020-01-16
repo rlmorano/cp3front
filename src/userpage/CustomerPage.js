@@ -24,7 +24,7 @@ const CustomerPage = props => {
     axios({
       method: 'GET',
       headers: { 'content-type': 'application/json' },
-      url: 'http://localhost:5000/api/booking/mybookings'
+      url: 'http://tattooz.ralphmorano.com/api/booking/mybookings'
     })
       .then(res => {
         if (res.data.length === 0) {
@@ -46,13 +46,13 @@ const CustomerPage = props => {
     axios({
       method: 'DELETE',
       headers: { 'content-type': 'application/json' },
-      url: 'http://localhost:5000/api/booking/' + id
+      url: 'http://tattooz.ralphmorano.com/api/booking/' + id
     })
       .then(res => {
         axios({
           method: 'GET',
           headers: { 'content-type': 'application/json' },
-          url: 'http://localhost:5000/api/booking/mybookings'
+          url: 'http://tattooz.ralphmorano.com/api/booking/mybookings'
         })
           .then(res => {
             setBookings(res.data);
