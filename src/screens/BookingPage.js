@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import ReactDatetime from 'react-datetime';
+import AuthContext from 'context/auth/authContext';
+
 import axios from 'axios';
 // reactstrap components
 import {
@@ -53,6 +55,10 @@ const BookingPage = props => {
       .catch(err => console.log(err.message));
   };
 
+
+  const authContext = useContext(AuthContext);
+
+  const { isAuthenticated, logoutUser, user } = authContext;
   return (
     <>
       <Container>
@@ -152,9 +158,21 @@ const BookingPage = props => {
                             </Input>
                           </td>
                           <td>
-                            <Button className='btn-warning mr-2'>
-                              BOOK A SESSION
-                            </Button>
+
+                            {isAuthenticated ? (
+                              <>
+                                {user.email === 'patpatin@gmail.com' ? (
+
+                                  <Button className="btn" color="warning" href="/booking">BOOK A SESSION</Button>) :
+                                  (
+                                    <Button className="btn" color="warning" href="/booking">BOOK A SESSION</Button>)}
+                              </>
+                            ) : (
+                                <>
+
+                                  <Button className="btn" color="warning" href="/router">BOOK A SESSION</Button>
+                                </>
+                              )}
                           </td>
                         </tr>
                       </tbody>

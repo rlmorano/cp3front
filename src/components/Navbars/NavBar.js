@@ -141,6 +141,8 @@ function NavBar() {
                   </NavItem>
                 </>
               )}
+
+
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 My Account

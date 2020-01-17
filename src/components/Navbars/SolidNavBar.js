@@ -117,11 +117,31 @@ function SolidNavBar() {
               </NavLink>
             </NavItem>
 
-            <NavItem>
-              <NavLink to='/booking' tag={Link} >
-                BOOK A SESSION
-              </NavLink>
-            </NavItem>
+            {isAuthenticated ? (
+              <>
+                {user.email === 'patpatin@gmail.com' ? (
+                  <NavItem>
+                    <NavLink to='/booking' tag={Link} >
+                      BOOK A SESSION
+                  </NavLink>
+                  </NavItem>) :
+                  (<NavItem>
+                    <NavLink to='/booking' tag={Link} >
+                      BOOK A SESSION
+                    </NavLink>
+                  </NavItem>)}
+              </>
+            ) : (
+                <>
+                  <NavItem>
+                    <NavLink to='/router' tag={Link}>
+                      BOOK A SESSION
+                    </NavLink>
+                  </NavItem>
+                </>
+              )}
+
+
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 My Account
