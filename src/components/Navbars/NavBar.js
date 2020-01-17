@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 // nodejs library that concatenates strings
 import classnames from 'classnames';
 import { Link as Slink, animateScroll as scroll } from "react-scroll";
-
 import AuthContext from '../../context/auth/authContext';
 
 // reactstrap components
@@ -119,11 +118,29 @@ function NavBar() {
               </NavLink>
             </NavItem>
 
-            <NavItem>
-              <NavLink to='/booking' tag={Link} >
-                BOOK A SESSION
-              </NavLink>
-            </NavItem>
+            {isAuthenticated ? (
+              <>
+                {user.email === 'patpatin@gmail.com' ? (
+                  <NavItem>
+                    <NavLink to='/booking' tag={Link} >
+                      BOOK A SESSION
+                  </NavLink>
+                  </NavItem>) :
+                  (<NavItem>
+                    <NavLink to='/booking' tag={Link} >
+                      BOOK A SESSION
+                    </NavLink>
+                  </NavItem>)}
+              </>
+            ) : (
+                <>
+                  <NavItem>
+                    <NavLink to='/router' tag={Link}>
+                      BOOK A SESSION
+                    </NavLink>
+                  </NavItem>
+                </>
+              )}
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 My Account

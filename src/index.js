@@ -17,7 +17,7 @@ import BookingPage from 'screens/BookingPage';
 // userpages
 import CustomerPage from 'userpage/CustomerPage';
 import AdminPage from 'userpage/AdminPage';
-// import Account from 'screens/Account';
+import LogInRegisterRouter from 'screens/LogInRegisterRouter'
 
 // others
 import AuthState from 'context/auth/AuthState';
@@ -34,6 +34,7 @@ ReactDOM.render(
         <Route path='/booking' exact component={BookingPage} />
         <Route path='/customer' exact component={CustomerPage} />
         <Route path='/admin' exact component={AdminPage} />
+        <Route path='/router' exact component={LogInRegisterRouter} />
       </Switch>
     </BrowserRouter>
   </AuthState>,
